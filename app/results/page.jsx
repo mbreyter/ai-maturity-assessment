@@ -134,7 +134,7 @@ export default function ResultsPage() {
 
   const shareText = `I just took the Enterprise AI Maturity Assessment — a free tool based on the Six Stages of Enterprise AI Maturity framework.
 
-Try it out at [live-URL]
+Try it out at https://ai-maturity-assessment-ruby.vercel.app
 
 #EnterpriseAI #AIStrategy #AITransformation #BoardLeadership @mariyabreyter`;
 
@@ -518,7 +518,7 @@ Try it out at [live-URL]
                   {" "}— a free tool based on the Six Stages of Enterprise AI Maturity framework.
                 </p>
                 <p style={{ margin: "0 0 0.4rem 0" }}>
-                  Try it out at <span style={{ color: "#1a5276" }}>[live-URL]</span>
+                  Try it out at <span style={{ color: "#1a5276" }}>https://ai-maturity-assessment-ruby.vercel.app</span>
                 </p>
                 <p style={{ margin: 0, color: "#aaa" }}>
                   #EnterpriseAI #AIStrategy #AITransformation #BoardLeadership @mariyabreyter

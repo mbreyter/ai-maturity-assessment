@@ -59,7 +59,7 @@ Start the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+Open [https://ai-maturity-assessment-ruby.vercel.app](https://ai-maturity-assessment-ruby.vercel.app) in your browser to see the application.
 
 ### Building for Production
 
