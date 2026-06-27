@@ -115,8 +115,16 @@ npm start
 - **Accessibility** — Semantic HTML and clear radio button controls
 
 ## License
+The Enterprise AI Maturity Assessment Framework, scoring model, dimensions, 
+maturity levels, and all framework content are © Mariya Breyter and licensed 
+under Creative Commons Attribution 4.0 International (CC BY 4.0).
 
-See [LICENSE](LICENSE) file for details.
+You may use, share, and adapt this framework for any purpose, including 
+commercially, provided you credit Mariya Breyter and link to the original:
+https://github.com/mbreyter/ai-maturity-assessment
+
+The underlying code is separately licensed under MIT.
+[![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
 ## Author
 
