@@ -1,15 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { questions } from "@/data/questions";
 import { calculateScores } from "@/lib/scoring";
+
+const loadingMessages = [
+  "Collecting your responses...",
+  "Assessing against the Six Stages framework...",
+  "Identifying your maturity patterns...",
+  "Calculating your score breakdown...",
+  "Generating your personalized diagnosis...",
+  "Finalizing your report...",
+];
 
 export default function AssessmentPage() {
   const router = useRouter();
   const [answers, setAnswers] = useState({});
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
+
+  useEffect(() => {
+    if (!isSubmitting) return;
+    setLoadingStep(0);
+    const interval = setInterval(() => {
+      setLoadingStep(prev => prev < loadingMessages.length - 1 ? prev + 1 : prev);
+    }, 14000);
+    return () => clearInterval(interval);
+  }, [isSubmitting]);
 
   const totalQuestions = questions.length;
   const answeredQuestions = Object.keys(answers).length;
@@ -60,8 +79,8 @@ export default function AssessmentPage() {
       router.push("/results");
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to generate report. Please try again.");
       setIsSubmitting(false);
+      alert(`Something went wrong: ${error.message}. Please try again.`);
     }
   };
 
@@ -90,13 +109,19 @@ export default function AssessmentPage() {
               style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </div>
         </div>
-        <p style={{ fontFamily: "Georgia, serif", fontSize: "1.2rem", color: "#1a1a2e", margin: "0 0 0.5rem 0" }}>
-          Generating your personalized diagnosis...
+        <p key={loadingStep} style={{
+          fontFamily: "Georgia, serif", fontSize: "1.2rem", color: "#1a1a2e",
+          margin: "0 0 0.5rem 0", animation: "fadeIn 0.6s ease",
+        }}>
+          {loadingMessages[loadingStep]}
         </p>
         <p style={{ fontSize: "0.9rem", color: "#888", margin: 0 }}>
-          This usually takes 10–20 seconds
+          This may take 1–2 minutes
         </p>
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        <style>{`
+          @keyframes spin { to { transform: rotate(360deg); } }
+          @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        `}</style>
       </div>
     );
   }

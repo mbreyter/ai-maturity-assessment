@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getStageName, getStageDescription } from "@/lib/scoring";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts";
 
 const stageColors = {
   1: "#c0392b",
@@ -132,6 +133,15 @@ export default function ResultsPage() {
   const stageDesc = getStageDescription(scores.maturityStage);
   const color = stageColors[scores.maturityStage];
 
+  const frameworkStages = [
+    { num: 1, name: "The Petting Zoo",      desc: "Supervised play with copilots",              color: "#c0392b", pct: 28 },
+    { num: 2, name: "The Bazaar",            desc: "87 vendors, 0 architecture",                 color: "#c0600a", pct: 44 },
+    { num: 3, name: "The Pilot Graveyard",   desc: "Built for a demo, not the operating model",  color: "#6c3483", pct: 59 },
+    { num: 4, name: "The Inversion",         desc: "Productivity → operating model",             color: "#1a5276", pct: 73 },
+    { num: 5, name: "The Refinery",          desc: "Outcome reshaping under governance",         color: "#1e6f35", pct: 87 },
+    { num: 6, name: "The Operating Model",   desc: "AI as the substrate of the business",        color: "#283593", pct: 100 },
+  ];
+
   const shareText = `I just took the Enterprise AI Maturity Assessment — a free tool based on the Six Stages of Enterprise AI Maturity framework.
 
 Try it out at https://ai-maturity-assessment-ruby.vercel.app
@@ -196,6 +206,57 @@ Try it out at https://ai-maturity-assessment-ruby.vercel.app
           </div>
         </section>
 
+        {/* SECTION 1B: RADAR CHART */}
+        <section style={{ marginBottom: "4rem" }}>
+          <div style={{
+            backgroundColor: "white",
+            padding: "2.5rem",
+            borderRadius: "0.5rem",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+          }}>
+            <h2 style={{
+              fontFamily: "Georgia, serif", fontSize: "1.8rem",
+              marginBottom: "0.5rem", color: "#1a1a2e", fontWeight: "bold",
+            }}>
+              Your AI Maturity Profile
+            </h2>
+            <p style={{ color: "#666", fontSize: "0.95rem", marginBottom: "1.5rem" }}>
+              Score breakdown across all six stages (out of 10 each)
+            </p>
+            <ResponsiveContainer width="100%" height={380}>
+              <RadarChart data={[
+                { stage: "The Petting Zoo",      score: scores.stageScores[1] },
+                { stage: "The Bazaar",           score: scores.stageScores[2] },
+                { stage: "The Pilot Graveyard",  score: scores.stageScores[3] },
+                { stage: "The Inversion",        score: scores.stageScores[4] },
+                { stage: "The Refinery",         score: scores.stageScores[5] },
+                { stage: "The Operating Model",  score: scores.stageScores[6] },
+              ]} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+                <PolarGrid stroke="#e0e0e0" />
+                <PolarAngleAxis
+                  dataKey="stage"
+                  tick={{ fontSize: 13, fill: "#444", fontFamily: "Georgia, serif" }}
+                />
+                <PolarRadiusAxis
+                  angle={90} domain={[0, 10]} tickCount={6}
+                  tick={{ fontSize: 11, fill: "#999" }}
+                />
+                <Radar
+                  dataKey="score"
+                  stroke={stageColors[scores.maturityStage]}
+                  fill={stageColors[scores.maturityStage]}
+                  fillOpacity={0.25}
+                  strokeWidth={2}
+                />
+                <Tooltip
+                  formatter={(value) => [`${value} / 10`, "Score"]}
+                  contentStyle={{ fontFamily: "Georgia, serif", fontSize: "0.9rem" }}
+                />
+              </RadarChart>
+            </ResponsiveContainer>
+          </div>
+        </section>
+
         {/* SECTION 2: FRAMEWORK REFERENCE */}
         <section style={{ marginBottom: "4rem" }}>
           <div
@@ -218,19 +279,57 @@ Try it out at https://ai-maturity-assessment-ruby.vercel.app
             >
               The Six Stages Framework
             </h2>
-            <img
-              src="/ai-maturity-stages.jpg"
-              alt="Six Stages Framework"
-              style={{
-                width: "100%",
-                maxWidth: "900px",
-                height: "auto",
-                marginBottom: "2rem",
-                borderRadius: "0.5rem",
-              }}
-            />
-            <p style={{ fontSize: "1rem", color: "#666", marginBottom: "2rem", margin: "0 0 2rem 0" }}>
-              Explore the complete framework and research behind the Six Stages of Enterprise AI Maturity.
+            {/* Custom bar chart */}
+            <p style={{ fontStyle: "italic", color: "#444", fontSize: "1rem", marginBottom: "2rem" }}>
+              Most boards believe they're in Stage 5. Most are in Stage 2 or 3.
+            </p>
+            <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "260px", marginBottom: "0" }}>
+              {frameworkStages.map((s) => (
+                <div key={s.num} style={{
+                  flex: 1, height: `${s.pct}%`, backgroundColor: s.color,
+                  borderRadius: "4px 4px 0 0", display: "flex", flexDirection: "column",
+                  alignItems: "center", justifyContent: "space-between",
+                  padding: "0.6rem 0.25rem 0.5rem", color: "white", overflow: "hidden",
+                }}>
+                  {s.pct >= 58 && (
+                    <div style={{ textAlign: "center" }}>
+                      <div style={{ fontSize: "0.62rem", fontWeight: "bold", lineHeight: "1.3", fontFamily: "Georgia, serif" }}>
+                        {s.num}. {s.name}
+                      </div>
+                      <div style={{ fontSize: "0.55rem", opacity: 0.88, lineHeight: "1.3", marginTop: "2px" }}>
+                        {s.desc}
+                      </div>
+                    </div>
+                  )}
+                  <div style={{ fontSize: s.pct >= 58 ? "1.8rem" : "1.4rem", fontWeight: "bold", fontFamily: "Georgia, serif", marginTop: s.pct < 58 ? "auto" : "0" }}>
+                    {s.num}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", gap: "6px", marginBottom: "1rem" }}>
+              {frameworkStages.map((s) => (
+                <div key={s.num} style={{ flex: 1 }}>
+                  {s.pct < 58 && (
+                    <>
+                      <div style={{ fontSize: "0.62rem", fontWeight: "bold", color: s.color, lineHeight: "1.3", fontFamily: "Georgia, serif" }}>
+                        {s.num}. {s.name}
+                      </div>
+                      <div style={{ fontSize: "0.55rem", color: "#666", lineHeight: "1.3" }}>
+                        {s.desc}
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.8rem", color: "#888", marginBottom: "0.5rem" }}>
+              <span>2022</span>
+              <span style={{ fontStyle: "italic" }}>From productivity story → operating model rewrite</span>
+              <span>2027+</span>
+            </div>
+            <p style={{ textAlign: "right", fontSize: "0.75rem", color: "#aaa", margin: "0 0 2rem 0" }}>
+              Mariya Breyter, Ph.D. | Enterprise AI Maturity Model
             </p>
             <a
               href="https://www.linkedin.com/posts/mariyabreyter_enterpriseai-aistrategy-boardleadership-share-7474510895449219072-n55X"
