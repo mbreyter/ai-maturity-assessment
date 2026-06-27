@@ -169,10 +169,13 @@ export default function AssessmentPage() {
             borderRadius: "0.5rem",
             boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
             marginBottom: "2rem",
+            minHeight: "520px",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           {/* Question Header */}
-          <div style={{ marginBottom: "2rem" }}>
+          <div style={{ marginBottom: "2rem", minHeight: "100px" }}>
             <h2
               style={{
                 fontFamily: "Georgia, serif",
@@ -315,6 +318,24 @@ export default function AssessmentPage() {
               {isSubmitting ? "Loading..." : "Get My Results"}
             </button>
           )}
+        </div>
+
+        {/* Inline footer */}
+        <div style={{ textAlign: "center", paddingBottom: "2rem" }}>
+          <p style={{ margin: "0 0 0.25rem 0", fontSize: "0.85rem", color: "#888" }}>
+            © 2026{" "}
+            <a href="https://www.linkedin.com/in/mariyabreyter/" target="_blank" rel="noopener noreferrer"
+              style={{ color: "#888", textDecoration: "underline" }}>
+              Mariya Breyter, Ph.D.
+            </a>
+            {" "}All rights reserved.
+          </p>
+          <p style={{ margin: 0, fontSize: "0.85rem" }}>
+            <a href="https://www.linkedin.com/in/mariyabreyter/" target="_blank" rel="noopener noreferrer"
+              style={{ color: "#1a5276", textDecoration: "none" }}>
+              linkedin.com/in/mariyabreyter
+            </a>
+          </p>
         </div>
       </div>
     </div>
