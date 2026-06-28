@@ -287,19 +287,21 @@ Try it out at https://ai-maturity-assessment-ruby.vercel.app
                   flex: 1, height: `${s.pct}%`, backgroundColor: s.color,
                   borderRadius: "4px 4px 0 0", display: "flex", flexDirection: "column",
                   alignItems: "center", justifyContent: "space-between",
-                  padding: "0.6rem 0.25rem 0.5rem", color: "white", overflow: "hidden",
+                  padding: "0.5rem 0.25rem 0.4rem", color: "white", overflow: "hidden",
                 }}>
-                  {s.pct >= 58 && (
+                  {s.pct >= 58 ? (
                     <div style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "0.62rem", fontWeight: "bold", lineHeight: "1.3", fontFamily: "Georgia, serif" }}>
+                      <div style={{ fontSize: "0.6rem", fontWeight: "bold", lineHeight: "1.3", fontFamily: "Georgia, serif" }}>
                         {s.num}. {s.name}
                       </div>
                       <div style={{ fontSize: "0.55rem", opacity: 0.88, lineHeight: "1.3", marginTop: "2px" }}>
                         {s.desc}
                       </div>
                     </div>
+                  ) : (
+                    <div />
                   )}
-                  <div style={{ fontSize: s.pct >= 58 ? "1.8rem" : "1.4rem", fontWeight: "bold", fontFamily: "Georgia, serif", marginTop: s.pct < 58 ? "auto" : "0" }}>
+                  <div style={{ fontSize: "1.5rem", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
                     {s.num}
                   </div>
                 </div>
@@ -310,7 +312,7 @@ Try it out at https://ai-maturity-assessment-ruby.vercel.app
                 <div key={s.num} style={{ flex: 1 }}>
                   {s.pct < 58 && (
                     <>
-                      <div style={{ fontSize: "0.62rem", fontWeight: "bold", color: s.color, lineHeight: "1.3", fontFamily: "Georgia, serif" }}>
+                      <div style={{ fontSize: "0.6rem", fontWeight: "bold", color: s.color, lineHeight: "1.3", fontFamily: "Georgia, serif" }}>
                         {s.num}. {s.name}
                       </div>
                       <div style={{ fontSize: "0.55rem", color: "#666", lineHeight: "1.3" }}>
