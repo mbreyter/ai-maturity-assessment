@@ -128,10 +128,26 @@ export default function ResultsPage() {
     );
   }
 
-  const { scores, report } = results;
+  const { scores, report, answers } = results;
   const stageName = getStageName(scores.maturityStage);
   const stageDesc = getStageDescription(scores.maturityStage);
   const color = stageColors[scores.maturityStage];
+
+  const dimensionMap = {
+    Strategy:                    [3, 5, 9, 16, 17],
+    Governance:                  [1, 10, 14, 18, 23],
+    "Operating Model":           [12, 13, 26, 27, 30],
+    Workforce:                   [2, 4, 19, 20, 29],
+    "Data & Technology":         [6, 7, 8, 21, 24],
+    "Measurement & Value":       [11, 15, 22, 25, 28],
+  };
+
+  const radarData = answers
+    ? Object.entries(dimensionMap).map(([dim, qIds]) => ({
+        dimension: dim,
+        score: Math.round(qIds.reduce((sum, id) => sum + (parseInt(answers[id]) || 0), 0)),
+      }))
+    : Object.entries(dimensionMap).map(([dim]) => ({ dimension: dim, score: 0 }));
 
   const frameworkStages = [
     { num: 1, name: "The Petting Zoo",      desc: "Supervised play with copilots",              color: "#c0392b", pct: 28 },
@@ -221,21 +237,14 @@ Try it out at https://ai-maturity-assessment-ruby.vercel.app
               Your AI Maturity Profile
             </h2>
             <p style={{ color: "#666", fontSize: "0.95rem", marginBottom: "1.5rem" }}>
-              Score breakdown across all six stages (out of 10 each)
+              Maturity score across six dimensions (out of 10 each)
             </p>
-            <ResponsiveContainer width="100%" height={380}>
-              <RadarChart data={[
-                { stage: "The Petting Zoo",      score: scores.stageScores[1] },
-                { stage: "The Bazaar",           score: scores.stageScores[2] },
-                { stage: "The Pilot Graveyard",  score: scores.stageScores[3] },
-                { stage: "The Inversion",        score: scores.stageScores[4] },
-                { stage: "The Refinery",         score: scores.stageScores[5] },
-                { stage: "The Operating Model",  score: scores.stageScores[6] },
-              ]} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+            <ResponsiveContainer width="100%" height={400}>
+              <RadarChart data={radarData} margin={{ top: 20, right: 50, bottom: 20, left: 50 }}>
                 <PolarGrid stroke="#e0e0e0" />
                 <PolarAngleAxis
-                  dataKey="stage"
-                  tick={{ fontSize: 13, fill: "#444", fontFamily: "Georgia, serif" }}
+                  dataKey="dimension"
+                  tick={{ fontSize: 12, fill: "#444", fontFamily: "Georgia, serif" }}
                 />
                 <PolarRadiusAxis
                   angle={90} domain={[0, 10]} tickCount={6}

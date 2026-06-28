@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { questions } from "@/data/questions";
-import { calculateScores } from "@/lib/scoring";
 
 const loadingMessages = [
   "Collecting your responses...",
@@ -75,7 +74,7 @@ export default function AssessmentPage() {
       }
 
       const data = await response.json();
-      sessionStorage.setItem("assessmentResults", JSON.stringify(data));
+      sessionStorage.setItem("assessmentResults", JSON.stringify({ ...data, answers }));
       router.push("/results");
     } catch (error) {
       console.error("Error:", error);
