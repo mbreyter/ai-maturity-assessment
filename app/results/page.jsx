@@ -281,45 +281,25 @@ Try it out at https://ai-maturity-assessment-ruby.vercel.app
             <p style={{ fontStyle: "italic", color: "#444", fontSize: "1rem", marginBottom: "2rem" }}>
               Most boards believe they're in Stage 5. Most are in Stage 2 or 3.
             </p>
-            <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "260px", marginBottom: "0" }}>
+            <div style={{ display: "flex", alignItems: "flex-end", gap: "6px", height: "300px", marginBottom: "1rem" }}>
               {frameworkStages.map((s) => (
                 <div key={s.num} style={{
                   flex: 1, height: `${s.pct}%`, backgroundColor: s.color,
                   borderRadius: "4px 4px 0 0", display: "flex", flexDirection: "column",
                   alignItems: "center", justifyContent: "space-between",
-                  padding: "0.5rem 0.25rem 0.4rem", color: "white", overflow: "hidden",
+                  padding: "0.4rem 0.2rem 0.35rem", color: "white", overflow: "hidden",
                 }}>
-                  {s.pct >= 58 ? (
-                    <div style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "0.6rem", fontWeight: "bold", lineHeight: "1.3", fontFamily: "Georgia, serif" }}>
-                        {s.num}. {s.name}
-                      </div>
-                      <div style={{ fontSize: "0.55rem", opacity: 0.88, lineHeight: "1.3", marginTop: "2px" }}>
-                        {s.desc}
-                      </div>
+                  <div style={{ textAlign: "center" }}>
+                    <div style={{ fontSize: "0.58rem", fontWeight: "bold", lineHeight: "1.25", fontFamily: "Georgia, serif" }}>
+                      {s.num}. {s.name}
                     </div>
-                  ) : (
-                    <div />
-                  )}
+                    <div style={{ fontSize: "0.52rem", opacity: 0.9, lineHeight: "1.25", marginTop: "2px" }}>
+                      {s.desc}
+                    </div>
+                  </div>
                   <div style={{ fontSize: "1.5rem", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
                     {s.num}
                   </div>
-                </div>
-              ))}
-            </div>
-            <div style={{ display: "flex", gap: "6px", marginBottom: "1rem" }}>
-              {frameworkStages.map((s) => (
-                <div key={s.num} style={{ flex: 1 }}>
-                  {s.pct < 58 && (
-                    <>
-                      <div style={{ fontSize: "0.6rem", fontWeight: "bold", color: s.color, lineHeight: "1.3", fontFamily: "Georgia, serif" }}>
-                        {s.num}. {s.name}
-                      </div>
-                      <div style={{ fontSize: "0.55rem", color: "#666", lineHeight: "1.3" }}>
-                        {s.desc}
-                      </div>
-                    </>
-                  )}
                 </div>
               ))}
             </div>
