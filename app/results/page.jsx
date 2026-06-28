@@ -639,6 +639,48 @@ Try it out at https://ai-maturity-assessment-ruby.vercel.app
           </div>
         </section>
 
+        {/* SECTION 7: GET HELP */}
+        <section style={{ marginBottom: "4rem" }}>
+          <div style={{
+            backgroundColor: "#1a1a2e",
+            borderRadius: "0.5rem",
+            padding: "2rem 2.5rem",
+            textAlign: "center",
+          }}>
+            <h2 style={{
+              fontFamily: "Georgia, serif", fontSize: "1.4rem", color: "white",
+              margin: "0 0 0.75rem 0", fontWeight: "bold",
+            }}>
+              Need help with your AI implementation?
+            </h2>
+            <p style={{ color: "#ccc", fontSize: "0.95rem", margin: "0 0 1.25rem 0", lineHeight: "1.6" }}>
+              <a href="https://www.linkedin.com/in/mariyabreyter/" target="_blank" rel="noopener noreferrer"
+                style={{ color: "white", fontWeight: "600", textDecoration: "underline" }}>
+                Mariya Breyter, Ph.D.
+              </a>{" "}
+              works with enterprise leadership teams to move through the stages — from strategy to operating model transformation.
+            </p>
+            <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+              <a href="mailto:mariya.breyter@gmail.com"
+                style={{
+                  display: "inline-block", backgroundColor: "white", color: "#1a1a2e",
+                  padding: "0.75rem 1.5rem", borderRadius: "0", textDecoration: "none",
+                  fontWeight: "600", fontSize: "0.95rem",
+                }}>
+                Email Mariya
+              </a>
+              <a href="https://www.linkedin.com/in/mariyabreyter/" target="_blank" rel="noopener noreferrer"
+                style={{
+                  display: "inline-block", backgroundColor: "#0077B5", color: "white",
+                  padding: "0.75rem 1.5rem", borderRadius: "0", textDecoration: "none",
+                  fontWeight: "600", fontSize: "0.95rem",
+                }}>
+                Connect on LinkedIn
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Buttons */}
         <section style={{ marginBottom: "2rem", textAlign: "center" }}>
           <button
