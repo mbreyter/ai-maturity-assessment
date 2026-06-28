@@ -128,26 +128,15 @@ export default function ResultsPage() {
     );
   }
 
-  const { scores, report, answers } = results;
+  const { scores, report } = results;
   const stageName = getStageName(scores.maturityStage);
   const stageDesc = getStageDescription(scores.maturityStage);
   const color = stageColors[scores.maturityStage];
 
-  const dimensionMap = {
-    Strategy:                    [3, 5, 9, 16, 17],
-    Governance:                  [1, 10, 14, 18, 23],
-    "Operating Model":           [12, 13, 26, 27, 30],
-    Workforce:                   [2, 4, 19, 20, 29],
-    "Data & Technology":         [6, 7, 8, 21, 24],
-    "Measurement & Value":       [11, 15, 22, 25, 28],
-  };
-
-  const radarData = answers
-    ? Object.entries(dimensionMap).map(([dim, qIds]) => ({
-        dimension: dim,
-        score: Math.round(qIds.reduce((sum, id) => sum + (parseInt(answers[id]) || 0), 0)),
-      }))
-    : Object.entries(dimensionMap).map(([dim]) => ({ dimension: dim, score: 0 }));
+  const radarData = Object.entries(scores.dimensionScores || {}).map(([dim, score]) => ({
+    dimension: dim,
+    score,
+  }));
 
   const frameworkStages = [
     { num: 1, name: "The Petting Zoo",      desc: "Supervised play with copilots",              color: "#c0392b", pct: 28 },

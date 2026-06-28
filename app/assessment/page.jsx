@@ -74,7 +74,7 @@ export default function AssessmentPage() {
       }
 
       const data = await response.json();
-      sessionStorage.setItem("assessmentResults", JSON.stringify({ ...data, answers }));
+      sessionStorage.setItem("assessmentResults", JSON.stringify(data));
       router.push("/results");
     } catch (error) {
       console.error("Error:", error);
